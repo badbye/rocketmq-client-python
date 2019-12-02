@@ -42,7 +42,12 @@ from rocketmq.client import PushConsumer
 
 
 def callback(msg):
-    print(msg.id, msg.body)
+    # consume messages, must return 0 or 1
+    try:
+        print(msg.id, msg.body)
+        return 0 # consume success
+    except:
+        return 1 # will reconsume it later
 
 
 consumer = PushConsumer('CID_XXX')
